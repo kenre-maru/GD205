@@ -1,0 +1,49 @@
+using UnityEngine;
+using System.Collections;
+
+public class Player : MonoBehaviour {
+
+	public GameObject Player1;
+	public GameObject Lose;
+	public GameObject Win;
+
+	// Use this for initialization
+	void Start () {}
+	
+	// Update is called once per frame
+	void Update () {
+
+	//Movement
+
+		if (Input.GetKeyDown ("w")) {
+			Player1.transform.position += new Vector3 (0, 1, 0);
+		}
+
+		if (Input.GetKeyDown ("a")) {
+			Player1.transform.position += new Vector3 (-1, 0, 0);
+		}
+
+		if (Input.GetKeyDown ("s")) {
+			Player1.transform.position += new Vector3 (0, -1, 0);
+		}
+
+		if (Input.GetKeyDown ("d")) {
+			Player1.transform.position += new Vector3 (1, 0, 0);
+		}
+	}
+
+	void OnCollisionEnter2D (Collision2D coll){
+		if (coll.gameObject.tag == "enemy") {
+			Destroy (Player1);
+			Lose.transform.position = new Vector3 (0, 0, 0);
+		}
+
+		if (coll.gameObject.tag == "reset") {
+			Player1.transform.position = new Vector3 (-8, 4, 0);
+		}
+
+		if (coll.gameObject.tag == "exit") {
+			Win.transform.position = new Vector3 (0, 0, 0);
+		}			
+	}
+}
